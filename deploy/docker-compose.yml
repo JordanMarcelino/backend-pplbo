@@ -9,11 +9,11 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=backend_pplbo
+      - POSTGRES_DB=sampahku
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U postgres -d backend_pplbo
+      test: pg_isready -U postgres -d sampahku
       interval: 10s
       timeout: 3s
       retries: 5
