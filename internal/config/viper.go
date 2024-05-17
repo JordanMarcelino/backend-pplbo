@@ -11,7 +11,7 @@ type Config struct {
 	PgUser     string `mapstructure:"POSTGRES_USER"`
 	PgPassword string `mapstructure:"POSTGRES_PASSWORD"`
 	PgHost     string `mapstructure:"POSTGRES_HOST"`
-	PgPort     string `mapstructure:"POSTGRES_PORT"`
+	PgPort     int    `mapstructure:"POSTGRES_PORT"`
 	PgDB       string `mapstructure:"POSTGRES_DB"`
 	LogLevel   int    `mapstructure:"LOG_LEVEL"`
 	DbIdleCon  int    `mapstructure:"DB_POOL_IDLE"`

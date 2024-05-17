@@ -10,7 +10,7 @@ import (
 )
 
 func NewDatabase(config *Config, log *logrus.Logger) *gorm.DB {
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Jakarta", config.PgHost, config.PgUser, config.PgPassword, config.PgDB, config.PgHost)
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Jakarta", config.PgHost, config.PgUser, config.PgPassword, config.PgDB, config.PgPort)
 
 	log.Debug(dsn)
 

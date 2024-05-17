@@ -17,8 +17,8 @@ services:
       interval: 10s
       timeout: 3s
       retries: 5
-  golang-article:
-    build: .
+  golang-sampahku:
+    image: sampahku-api/1.0.0
     restart: always
     ports:
       - "8080:8080"

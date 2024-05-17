@@ -1,21 +1,29 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/jordanmarcelino/backend-pplbo/internal/api"
 	"github.com/jordanmarcelino/backend-pplbo/internal/config"
-	"log"
+	"github.com/jordanmarcelino/backend-pplbo/internal/entity"
+	"github.com/jordanmarcelino/backend-pplbo/internal/repository"
+	"github.com/jordanmarcelino/backend-pplbo/internal/usecase"
 )
 
 func main() {
-
-	r := gin.Default()
-	r.GET("/", func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{"message": "hello world"})
-	})
-
 	cfg := config.NewConfig(".")
+	logger := config.NewLogger(cfg)
+	db := config.NewDatabase(cfg, logger)
 
-	log.Println(*cfg)
+	if err := db.AutoMigrate(new(entity.User)); err != nil {
+		logger.Fatal(err)
+	}
 
-	log.Fatal(r.Run(":8080"))
+	userRepository := repository.NewUserRepository(db, logger)
+	userUseCase := usecase.NewUserUseCase(db, logger, userRepository)
+	userHandler := api.NewUserHandler(logger, userUseCase)
+
+	engine := config.NewGin(cfg)
+	routeConfig := config.NewRouteConfig(engine, cfg, logger, userHandler)
+
+	routeConfig.SetupRoutes()
+	routeConfig.StartServer(8080)
 }
